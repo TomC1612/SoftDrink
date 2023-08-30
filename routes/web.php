@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/products', 'App\Http\Controllers\ProductController@index')->name("product.index")->name("product.show");
 Route::get('/', function () {
     return view('welcome');
 });

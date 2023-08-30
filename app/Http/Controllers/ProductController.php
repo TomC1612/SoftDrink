@@ -14,53 +14,20 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $viewData = [];
+        $viewData["title"] = "Products - Soft Drink";
+        $viewData["subtitle"] = "List of products";
+        $viewData["products"] = Product::all();
+        return view('product.index')->with("viewData", $viewData);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function show($id)
     {
-        //
-    }
+        $viewData = [];
+        $product = Product::findOrFail($id);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProductRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Product $product)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProductRequest $request, Product $product)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Product $product)
-    {
-        //
+        $viewData["title"] = $product->getName() . " - Soft Drink";
+        $viewData["subtitle"] = $product->getName() . " - Product information";
+        $viewData["product"] = $product;
+        return view('product.show')->with("viewData", $viewData);
     }
 }
