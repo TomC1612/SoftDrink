@@ -18,8 +18,8 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img src="/logo.png" alt="" width="80" height="70"
-                        class=""></a>
+                <a class="navbar-brand" href="#"><img src="{{ asset('/img/logo.png') }}" alt=""
+                        width="80" height="70" class=""></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -49,8 +49,8 @@
     </div>
     <div>
         <footer>
-            <div class="container">
-                <div class="row bg-dark d-flex justify-content-center align-items-center">
+            <div class="">
+                <div class="row bg-dark d-flex justify-content-center align-items-center m-5 p-5">
                     <p class="text-light text-center">Designed by P&G</p>
                 </div>
             </div>

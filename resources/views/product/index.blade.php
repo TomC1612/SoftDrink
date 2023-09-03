@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-around pt-3 flex-lg-wrap">
         @foreach ($viewData['products'] as $product)
             <div class="card" style="width: 18rem">
-                <img src="{{ $product->getImage() }}" class="card-img-top img-fluid rounded" alt="..." />
+                <img src="{{ asset('/storage/img/' . $product->getImage()) }}" class="card-img-top img-fluid rounded mt-5" />
                 <div class="card-body">
                     <h5 class="card-title">{{ $product->getName() }}</h5>
                     <p class="card-text">
