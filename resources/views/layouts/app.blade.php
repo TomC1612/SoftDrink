@@ -33,12 +33,23 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Product</a>
                         </li>
+                        <div class="vr bg-white mx-2 d-none d-lg-block"></div>
+                        @guest
+                            <a href="{{ route('login') }}" class="nav-link active">Login</a>
+                            <a href="{{ route('register') }}" class="nav-link active">Register</a>
+                        @else
+                            <form action="{{ route('logout') }}" id="logout" method="POST">
+                                <a class="nav-link active" role="button"
+                                    onclick="document.getElementById('logout').submit();">Logout</a>
+                                @csrf
+                            </form>
+                        @endguest
 
                     </ul>
-                    <form class="d-flex" role="search">
+                    {{-- <form class="d-flex" role="search">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </nav>

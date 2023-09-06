@@ -135,5 +135,77 @@
         </div>
     </div>
 
+    <!-- Edit  Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="card-body">
+                        @if ($errors->any())
+                            <ul class="alert alert-danger list-unstyled">
+                                @foreach ($errors->all() as $error)
+                                    <li>- {{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                        <!-- add form -->
+                        <form method="POST" action="{{ route('admin.product.update', $product->getId()) }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <!--add element form: name, price, image, description-->
+
+
+
+                            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Name:</label>
+                            <div class="col-lg-10 col-md-6 col-sm-12">
+                                <input name="name" value="{{ $product->getName() }}" type="text"
+                                    class="form-control">
+                            </div>
+
+
+
+                            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Price:</label>
+                            <div class="col-lg-10 col-md-6 col-sm-12">
+                                <input name="price" value="{{ $product->getPrice() }}" type="number"
+                                    class="form-control">
+                            </div>
+
+
+
+
+
+                            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Image:</label>
+                            <div class="col-lg-10 col-md-6 col-sm-12">
+                                <input class="form-control" type="file" name="image">
+                            </div>
+
+
+                            <div class="col">
+                                &nbsp;
+                            </div>
+
+
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="description" rows="3">{{ $product->getDescription() }}</textarea>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submi" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 @endsection
