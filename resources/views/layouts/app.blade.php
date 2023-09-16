@@ -31,7 +31,10 @@
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Product</a>
+                            <a class="nav-link" href="{{ route('product.index') }}">Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('cart.index') }}">Cart</a>
                         </li>
                         <div class="vr bg-white mx-2 d-none d-lg-block"></div>
                         @guest
@@ -59,12 +62,12 @@
         @yield('content')
     </div>
     <div>
-        <footer>
-            <div class="">
-                <div class="row bg-dark d-flex justify-content-center align-items-center m-5 p-5">
-                    <p class="text-light text-center">Designed by P&G</p>
-                </div>
-            </div>
+        <footer class="bg-dark row mt-5 p-5 fixed-bottom">
+
+
+            <p class="text-light text-center">Designed by P&G</p>
+
+
         </footer>
     </div>
 </body>

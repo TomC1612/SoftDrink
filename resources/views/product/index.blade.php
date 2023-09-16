@@ -8,9 +8,10 @@
                 <img src="{{ asset('/storage/img/' . $product->getImage()) }}" class="card-img-top img-fluid rounded mt-5" />
                 <div class="card-body">
                     <h5 class="card-title">{{ $product->getName() }}</h5>
-                    <p class="card-text">
-                        {{ $product->getPrice() }}
+                    <p class="card-text"> Price :
+                        {{ $product->getPrice() }} $
                     </p>
+
                     <div class="d-flex justify-content-evenly">
                         <button type="button" class="btn btn-primary">Buy Now</button>
                         <button class="btn btn-primary">

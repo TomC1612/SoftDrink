@@ -13,6 +13,16 @@ class Product extends Model
         'price',
         'image',
     ];
+
+    public static function sumPriceByQuantities($products, $productInSession)
+    {
+        $total = 0;
+        foreach ($products as $product) {
+            $total = $total + ($product->price * $productInSession[$product->id]);
+        }
+        return $total;
+    }
+
     public function getId()
     {
         return $this->attributes['id'];
