@@ -32,20 +32,23 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach ($viewData['products'] as $product)
-                            <tr>
-                                <td>{{ $product->getId() }}</td>
-                                <td>{{ $product->getName() }}</td>
-                                <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                        data-bs-target="#editModal">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button></td>
-                                <td><button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#deleteModal">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @isset($product)
+                                <tr>
+                                    <td>{{ $product->getId() }}</td>
+                                    <td>{{ $product->getName() }}</td>
+                                    <td><button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                            data-bs-target="#editModal">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button></td>
+                                    <td><button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endisset
                         @endforeach
                     </tbody>
                 </table>
@@ -120,15 +123,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.product.delete', $product->getId()) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <span>Are you sure want to delete this product ?</span>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Confirn</button>
-                        </div>
-                    </form>
+                    @isset($product)
+                        <form action="{{ route('admin.product.delete', $product->getId()) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <span>Are you sure want to delete this product ?</span>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Confirn</button>
+                            </div>
+                        </form>
+                    @endisset
+
                 </div>
 
             </div>

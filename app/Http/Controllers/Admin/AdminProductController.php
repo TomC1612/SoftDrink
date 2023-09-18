@@ -7,9 +7,11 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
 class AdminProductController extends Controller
 {
     //
+    protected $table = "products";
     public function index()
     {
         $viewData = [];
@@ -17,6 +19,7 @@ class AdminProductController extends Controller
         $viewData['products'] = Product::all();
         return view('admin.product.index')->with("viewData", $viewData);
     }
+
     public function create(Request $request)
     {
         $request->validate([
@@ -26,25 +29,26 @@ class AdminProductController extends Controller
             'image' => 'image',
         ]);
         $newProduct = new Product();
-        // $newProduct = new Product();
-        // $newProduct->setName($request->input('name'));
-        // $newProduct->setDescription($request->input('description'));
-        // $newProduct->setPrice($request->input('price'));
-        // $newProduct->setImage("pepsi.jpg");
-        // $newProduct->save();
-        $creationData = $request->only(["name", "description", "price"]);
-        $creationData["image"] = "pepsi.jpg";
+        $newProduct->setName($request->input('name'));
+        $newProduct->setDescription($request->input('description'));
+        $newProduct->setPrice($request->input('price'));
+        $newProduct->setImage($request->input('image'));
+        // $creationData = $request->only(["name", "description", "price"]);
         if ($request->hasFile('image')) {
-            $imageName = $newProduct->getId() . "." . $request->file('image')->extension();
+            // $imageName = $newProduct->getId() . "." . $request->file('image')->extension();
+            $imageName = $request->file('image')->getClientOriginalName();
             Storage::disk('public')->put(
                 $imageName,
                 file_get_contents($request->file('image')->getRealPath())
             );
             $newProduct->setImage($imageName);
+
             $newProduct->save();
         }
-        Product::create($creationData);
-        return back(); //->with("success", "Product created successfully");
+        $newProduct->save();
+        // Product::create($creationData);
+
+        return back();
     }
     public function delete($id)
     {
@@ -71,7 +75,7 @@ class AdminProductController extends Controller
         $product->setDescription($request->input('description'));
         $product->setPrice($request->input('price'));
         if ($request->hasFile('image')) {
-            $imageName = $product->getId() . "." . $request->file('image')->extension();
+            $imageName = $product->getName() . "." . $request->file('image')->extension();
             Storage::disk('public')->put(
                 $imageName,
                 file_get_contents($request->file('image')->getRealPath())

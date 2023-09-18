@@ -13,7 +13,7 @@
                     </p>
 
                     <div class="d-flex justify-content-evenly">
-                        <button type="button" class="btn btn-primary">Buy Now</button>
+                        <button type="button" class="btn btn-primary">Detail</button>
                         <button class="btn btn-primary">
                             <i class="fa-solid fa-cart-shopping"></i>
                         </button>

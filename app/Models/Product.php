@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -79,5 +79,4 @@ class Product extends Model
     {
         $this->attributes['updated_at'] = $updatedAt;
     }
-    // use HasFactory;
 }
