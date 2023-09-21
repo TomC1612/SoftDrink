@@ -37,7 +37,8 @@
                     <a href="{{ route('admin.product.index') }}"
                         class="list-group-item list-group-item-action py-2 ripple"><i
                             class="fa-solid fa-bottle-droplet fa-fw me-3"></i><span>Product</span></a>
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+                    <a href="{{ route('admin.user.index') }}"
+                        class="list-group-item list-group-item-action py-2 ripple"><i
                             class="fas fa-users fa-fw me-3"></i><span>Users</span></a>
 
                 </div>
@@ -53,5 +54,6 @@
 
 
 </body>
+@yield('script')
 
 </html>

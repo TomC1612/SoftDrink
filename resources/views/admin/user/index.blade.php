@@ -6,11 +6,10 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-lg-6">
-                    <span> Manage Products</span>
+                    <span> Manage Users</span>
                 </div>
                 <div class="col-lg-6 d-flex justify-content-end">
-                    <a href="{{ route('admin.product.create') }}" class="btn btn-primary ">Add</a>
-
+                    <a href="{{ route('admin.user.create') }}" class="btn btn-primary">Add</a>
                 </div>
             </div>
 
@@ -26,18 +25,20 @@
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Role</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        @foreach ($viewData['products'] as $product)
-                            @isset($product)
+                        @foreach ($viewData['users'] as $user)
+                            @isset($user)
                                 <tr>
-                                    <td>{{ $product->getId() }}</td>
-                                    <td>{{ $product->getName() }}</td>
-                                    <td><a href="{{ route('admin.product.edit', ['id' => $product->getId()]) }}"
+                                    <td>{{ $user->getId() }}</td>
+                                    <td>{{ $user->getName() }}</td>
+                                    <td>{{ $user->getRole() }}</td>
+                                    <td><a href="{{ route('admin.user.edit', ['id' => $user->getId()]) }}"
                                             class="btn btn-success">
                                             <i class="fa-solid fa-pen-to-square"></i></a></td>
                                     <td><button type="button" class="btn btn-danger" data-bs-toggle="modal"
@@ -71,35 +72,34 @@
                         </ul>
                     @endif
                     <!-- Form input field -->
-                    <form method="POST" action="{{ route('admin.product.create') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.user.create') }}" enctype="multipart/form-data">
                         @csrf
                         <!-- add form controls to create product -->
                         <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Name:</label>
                         <div class="col-lg-10 col-md-6 col-sm-12">
                             <input name="name" value="{{ old('name') }}" type="text" class="form-control">
                         </div>
-                        <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Price:</label>
+                        <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Email:</label>
                         <div class="col-lg-10 col-md-6 col-sm-12">
-                            <input name="price" value="{{ old('price') }}" type="number" class="form-control">
+                            <input name="email" value="{{ old('price') }}" type="email" class="form-control">
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" name="description" rows="3">{{ old('description') }}
-                            </textarea>
+                        <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Role:</label>
+                        <div class="col-lg-10 col-md-6 col-sm-12">
+                            <select name="role" id="" class="form-select">
+
+                                @foreach ($viewData['users'] as $user)
+                                    <option value="{{ $user->getRole() }}"
+                                        {{ $viewData['users']->getRole == $user->getRole() ? 'selected' : '' }}>
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3 row">
-                                    <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Image:</label>
-                                    <div class="col-lg-10 col-md-6 col-sm-12">
-                                        <input class="form-control" type="file" name="image">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                &nbsp;
-                            </div>
+                        <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Password:</label>
+                        <div class="col-lg-10 col-md-6 col-sm-12">
+                            <input name="password" value="{{ old('price') }}" type="password" class="form-control">
                         </div>
+
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -112,6 +112,7 @@
             </div>
         </div>
     </div> --}}
+
     <!-- Delete Modal-->
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -121,11 +122,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    @isset($product)
-                        <form action="{{ route('admin.product.delete', $product->getId()) }}" method="POST">
+                    @isset($user)
+                        <form action="{{ route('admin.user.delete', $user->getId()) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <span>Are you sure want to delete this product {{ $product->getname() }}?</span>
+                            <span>Are you sure want to delete this user {{ $user->getName() }} ?</span>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-danger">Confirn</button>
@@ -138,13 +139,12 @@
             </div>
         </div>
     </div>
-
     <!-- Edit  Modal -->
     {{-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Product</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User : {{ $user->getName() }}</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -160,7 +160,7 @@
                         @endif
 
 
-                        <form method="POST" action="{{ route('admin.product.update', $product->getId()) }}"
+                        <form method="POST" action="{{ route('admin.user.update', $user->getId()) }}"
                             enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
@@ -170,46 +170,38 @@
 
                             <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Name:</label>
                             <div class="col-lg-10 col-md-6 col-sm-12">
-                                <input name="name" value="{{ $product->getName() }}" type="text" class="form-control">
+                                <input name="name" value="{{ $user->getName() }}" type="text" class="form-control">
                             </div>
-
-
-
-                            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Price:</label>
+                            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Email:</label>
                             <div class="col-lg-10 col-md-6 col-sm-12">
-                                <input name="price" value="{{ $product->getPrice() }}" type="number"
-                                    class="form-control">
+                                <input name="email" value="{{ $user->getEmail() }}" type="email" class="form-control">
                             </div>
-
-
-
-
-
-                            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Image:</label>
+                            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Role:</label>
                             <div class="col-lg-10 col-md-6 col-sm-12">
-                                <input class="form-control" type="file" name="image">
+                                <select name="role" id="" class="form-select">
+                                    <option value="admin">Admin</option>
+                                    <option value="client">Client</option>
+                                </select>
                             </div>
+                            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Password:</label>
+                            <div class="col-lg-10 col-md-6 col-sm-12">
+                                <input name="password" " type="password"
+                                                                    class="form-control">
+                                                            </div>
 
 
-                            <div class="col">
-                                &nbsp;
-                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Submit</button>
 
+                                                            </div>
+                                                        </form>
+                                                    </div>
 
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" name="description" rows="3">{{ $product->getDescription() }}</textarea>
+                                                </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submi" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </div> --}}
+                                            </div>
+                                        </div>
+                                    </div> --}}
 
 @endsection

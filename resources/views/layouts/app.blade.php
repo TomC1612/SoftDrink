@@ -41,6 +41,9 @@
                             <a href="{{ route('login') }}" class="nav-link active">Login</a>
                             <a href="{{ route('register') }}" class="nav-link active">Register</a>
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('myaccount.orders') }}">My orders</a>
+                            </li>
                             <form action="{{ route('logout') }}" id="logout" method="POST">
                                 <a class="nav-link active" role="button"
                                     onclick="document.getElementById('logout').submit();">Logout</a>
@@ -58,11 +61,11 @@
         </nav>
 
     </div>
-    <div class="container">
+    <div class="container mh-100">
         @yield('content')
     </div>
     <div>
-        <footer class="bg-dark row mt-5 p-5 fixed-bottom">
+        <footer class="bg-dark  row mt-5 p-5 ">
 
 
             <p class="text-light text-center">Designed by P&G</p>

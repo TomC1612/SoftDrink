@@ -20,7 +20,13 @@ class AdminProductController extends Controller
         return view('admin.product.index')->with("viewData", $viewData);
     }
 
-    public function create(Request $request)
+    public function create()
+    {
+        $viewData = [];
+        $viewData["title"] = "Admin Page - Admin - Soft Drink";
+        return view('admin.product.create')->with("viewData", $viewData);
+    }
+    public function save(Request $request)
     {
         $request->validate([
             "name" => "required|max:255",
@@ -32,23 +38,18 @@ class AdminProductController extends Controller
         $newProduct->setName($request->input('name'));
         $newProduct->setDescription($request->input('description'));
         $newProduct->setPrice($request->input('price'));
-        $newProduct->setImage($request->input('image'));
-        // $creationData = $request->only(["name", "description", "price"]);
         if ($request->hasFile('image')) {
-            // $imageName = $newProduct->getId() . "." . $request->file('image')->extension();
             $imageName = $request->file('image')->getClientOriginalName();
             Storage::disk('public')->put(
                 $imageName,
                 file_get_contents($request->file('image')->getRealPath())
             );
             $newProduct->setImage($imageName);
-
             $newProduct->save();
         }
         $newProduct->save();
-        // Product::create($creationData);
-
-        return back();
+        $viewData["message"] = "Product created successfully";
+        return back()->with("viewData", $viewData);
     }
     public function delete($id)
     {
@@ -59,7 +60,7 @@ class AdminProductController extends Controller
     {
         $viewData = [];
         $viewData["title"] = "Admin Page - Edit Product - Soft Drink";
-        $viewData['products'] = Product::findOrFail();
+        $viewData['product'] = Product::findOrFail($id);
         return view('admin.product.edit')->with("viewData", $viewData);
     }
     public function update(Request $request, $id)
@@ -68,19 +69,23 @@ class AdminProductController extends Controller
             "name" => "required|max:255",
             "description" => "required",
             "price" => "required|numeric|gt:0",
-            'image' => 'image',
+            // 'image' => 'image',
         ]);
         $product = Product::findOrFail($id);
         $product->setName($request->input('name'));
         $product->setDescription($request->input('description'));
         $product->setPrice($request->input('price'));
+        // $product->setImage($request->input('image'));
         if ($request->hasFile('image')) {
-            $imageName = $product->getName() . "." . $request->file('image')->extension();
+            // $imageName = $newProduct->getId() . "." . $request->file('image')->extension();
+            $imageName = $request->file('image')->getClientOriginalName();
             Storage::disk('public')->put(
                 $imageName,
                 file_get_contents($request->file('image')->getRealPath())
             );
             $product->setImage($imageName);
+
+            // $product->save();
         }
         $product->save();
         return redirect()->route('admin.product.index');
