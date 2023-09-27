@@ -18,6 +18,10 @@
         <form method="POST" action="{{ route('admin.product.save') }}" enctype="multipart/form-data">
             @csrf
             <!-- add form controls to create product -->
+            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Brand:</label>
+            <div class="col-lg-10 col-md-6 col-sm-12">
+                <input name="brand" value="{{ old('brand') }}" type="text" class="form-control">
+            </div>
             <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Name:</label>
             <div class="col-lg-10 col-md-6 col-sm-12">
                 <input name="name" value="{{ old('name') }}" type="text" class="form-control">

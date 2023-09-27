@@ -68,11 +68,13 @@
         <footer class="bg-dark  row mt-5 p-5 ">
 
 
-            <p class="text-light text-center">Designed by P&G</p>
+            <p class="text-light text-center">Designed by P&P</p>
 
 
         </footer>
     </div>
+    @yield('load_javascript')
 </body>
+
 
 </html>

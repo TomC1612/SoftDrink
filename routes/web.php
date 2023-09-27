@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/products', 'App\Http\Controllers\ProductController@index')->name("product.index");
 Route::get('/products/{id}', 'App\Http\Controllers\ProductController@show')->name("product.show");
+Route::post('/products', 'App\Http\Controllers\ProductController@load')->name("product.index");
 Route::get('/', function () {
     return view('welcome');
 });
+Route::post('/search', 'App\Http\Controllers\ProductController@search')->name("product.search");
 Route::get('/cart', 'App\Http\Controllers\CartController@index')->name("cart.index");
 Route::get('/cart/delete', 'App\Http\Controllers\CartController@delete')->name("cart.delete");
 Route::post('/cart/add/{id}', 'App\Http\Controllers\CartController@add')->name("cart.add");
@@ -25,9 +27,12 @@ Route::post('/cart/add/{id}', 'App\Http\Controllers\CartController@add')->name("
 Route::middleware('auth')->group(function () {
     Route::get('/cart/purchase', 'App\Http\Controllers\CartController@purchase')->name('cart.purchase');
     Route::get('/myaccount/orders', 'App\Http\Controllers\MyAccountController@orders')->name('myaccount.orders');
+    Route::get('/review/{id}/create', 'App\Http\Controllers\ReviewController@create')->name('review.create');
+    Route::post('/review/{id}/save', 'App\Http\Controllers\ReviewController@save')->name('review.save');
+    Route::get('review/{id}/edit', 'App\Http\Controllers\ReviewController@edit')->name('review.edit');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('admin')->group(function () {
 
     Route::get('/admin/product', 'App\Http\Controllers\Admin\AdminProductController@index')->name("admin.product.index");
     Route::get('/admin/product/create', 'App\Http\Controllers\Admin\AdminProductController@create')->name("admin.product.create");

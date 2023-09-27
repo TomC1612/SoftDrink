@@ -18,7 +18,7 @@ class AdminAuthMiddleware
         if ($request->user() && $request->user()->getRole() == 'admin') {
             return $next($request);
         } else {
-            return redirect()->route('admin.home.index');
+            return redirect()->route('product.index');
         }
     }
 }

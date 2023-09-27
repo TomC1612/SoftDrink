@@ -11,22 +11,11 @@
                 <input name="name" type="text" class="form-control">
 
             </div>
-            <button class="btn " type="submit">Find</button>
+            <button class="btn btn-primary " type="submit">Find</button>
         </form>
 
     </div>
-    <div class="mb-5">
-        <form action="{{ route('product.index') }}" method="post" id="myForm">
-            @csrf
-            <select class="form-select" aria-label="Default select example" name="ProductBrand" id="ProductBrand">
-                <option value="all">Select Product Brand</option>
-                @foreach ($viewData['brands'] as $brand)
-                    <option value="{{ $brand->getBrand() }}">{{ $brand->getBrand() }}</option>
-                @endforeach
-            </select>
-        </form>
 
-    </div>
 
     <div class="d-flex justify-content-around pt-3 flex-lg-wrap flex-row ">
         @foreach ($viewData['products'] as $product)

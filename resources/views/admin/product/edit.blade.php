@@ -18,6 +18,10 @@
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Brand:</label>
+            <div class="col-lg-10 col-md-6 col-sm-12">
+                <input name="brand" value="{{ $viewData['product']->getBrand() }}" type="text" class="form-control">
+            </div>
             <label class="col-lg-2 col-md-6 col-sm-12 col-form-label">Name:</label>
             <div class="col-lg-10 col-md-6 col-sm-12">
                 <input name="name" value="{{ $viewData['product']->getName() }}" type="text" class="form-control">
@@ -36,7 +40,7 @@
             <label class="form-label">Description</label>
             <textarea class="form-control" name="description" rows="3">{{ $viewData['product']->getDescription() }}</textarea>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submi" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
 
         </form>
     </div>

@@ -29,12 +29,14 @@ class AdminProductController extends Controller
     public function save(Request $request)
     {
         $request->validate([
+            "brand" => "required|max:25",
             "name" => "required|max:255",
             "description" => "required",
             "price" => "required|numeric|gt:0",
             'image' => 'image',
         ]);
         $newProduct = new Product();
+        $newProduct->setBrand($request->input('brand'));
         $newProduct->setName($request->input('name'));
         $newProduct->setDescription($request->input('description'));
         $newProduct->setPrice($request->input('price'));
@@ -66,12 +68,14 @@ class AdminProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            "brand" => "required|max:25",
             "name" => "required|max:255",
             "description" => "required",
             "price" => "required|numeric|gt:0",
             // 'image' => 'image',
         ]);
         $product = Product::findOrFail($id);
+        $product->setName($request->input('brand'));
         $product->setName($request->input('name'));
         $product->setDescription($request->input('description'));
         $product->setPrice($request->input('price'));

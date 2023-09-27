@@ -3,7 +3,7 @@
 @section('subtitle', $viewData['subtitle'])
 @section('content')
 
-    <section class="d-flex justify-content-center align-items-center shadow">
+    <section class="d-flex justify-content-center align-items-center shadow mt-5">
         <div class="col-md-4">
             <img src="{{ asset('/storage/img/' . $viewData['product']->getImage()) }}" class="img-fluid rounded-start">
         </div>
@@ -13,8 +13,13 @@
                     {{ $viewData['product']->getName() }}
                     (${{ $viewData['product']->getPrice() }})
                     <p class="card-text">{{ $viewData['product']->getDescription() }}</p>
-                    {{-- <p class="card-text"><small class="text-muted">Add to Cart</small></p> --}}
+
                     <p class="card-text">
+                        @auth
+                            <a class="btn btn-success"
+                                href="{{ route('review.create', ['id' => $viewData['product']->getId()]) }}">Give a
+                                Comment</a>
+                        @endauth
 
                     <form action="{{ route('cart.add', ['id' => $viewData['product']->getId()]) }}" method="post">
                         <div class="row">
@@ -35,6 +40,28 @@
                     </p>
             </div>
         </div>
+    </section>
+    <section>
+        @foreach ($viewData['comments'] as $comment)
+            <div class="card mb-4">
+                <div class="card-body">
+                    <p class="h3">{{ $comment->getContent() }}</p>
+
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+
+                            <p class="medium mb-0 ms-2">{{ $viewData['UserName'] }}</p>
+                        </div>
+                        <div class="d-flex flex-row align-items-center">
+
+
+                            <p class="small text-muted mb-0">{{ $comment->getRating() }} - <i class="fa-solid fa-star"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </section>
 
 

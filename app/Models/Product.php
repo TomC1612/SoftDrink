@@ -9,6 +9,7 @@ class Product extends Model
 {
     protected $fillable = [
         'name',
+        'brand',
         'description',
         'price',
         'image',
@@ -30,6 +31,14 @@ class Product extends Model
     public function setId($id)
     {
         $this->attributes['id'] = $id;
+    }
+    public function getBrand()
+    {
+        return $this->attributes['brand'];
+    }
+    public function setBrand($brand)
+    {
+        $this->attributes['brand'] = $brand;
     }
     public function getName()
     {
