@@ -41,7 +41,7 @@
             </div>
         </div>
     </section>
-    <section>
+    <section class="mt-5">
         @foreach ($viewData['comments'] as $comment)
             <div class="card mb-4">
                 <div class="card-body">
